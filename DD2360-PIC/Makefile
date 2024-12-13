@@ -1,11 +1,11 @@
 # From https://x.momo86.net/?p=29
 
-CXX=g++
+CXX=g++-13
 CXXFLAGS=-std=c++11 -I./include -O3 -g -Xcompiler -Wall
 
 NVCC=nvcc
 ARCH=sm_30
-NVCCFLAGS= -I./include -arch=$(ARCH) -std=c++11 -O3 -g -Xcompiler -Wall --compiler-bindir=$(CXX)
+NVCCFLAGS= -I./include -std=c++11 -O3 -g -Xcompiler -Wall --compiler-bindir=$(CXX)
 
 SRCDIR=src
 SRCS=$(shell find $(SRCDIR) -name '*.cu' -o -name '*.cpp')
