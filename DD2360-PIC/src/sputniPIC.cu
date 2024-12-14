@@ -75,6 +75,19 @@ int main(int argc, char **argv){
     
     // Initialization
     initGEM(&param,&grd,&field,&field_aux,part,ids);
+
+    // Allocate device fields
+    FPfield *grd_XN_flat, *grd_YN_flat, *grd_ZN_flat, *field_Ex_flat, *field_Ey_flat, *field_Ez_flat, *field_Bxn_flat, *field_Byn_flat, *field_Bzn_flat;
+
+    cudaMalloc(&grd_XN_flat, sizeof(FPfield) * grd.nxn * grd.nyn * grd.nzn);
+    cudaMalloc(&grd_YN_flat, sizeof(FPfield) * grd.nxn * grd.nyn * grd.nzn);
+    cudaMalloc(&grd_ZN_flat, sizeof(FPfield) * grd.nxn * grd.nyn * grd.nzn);
+    cudaMalloc(&field_Ex_flat, sizeof(FPfield) * grd.nxn * grd.nyn * grd.nzn);
+    cudaMalloc(&field_Ey_flat, sizeof(FPfield) * grd.nxn * grd.nyn * grd.nzn);
+    cudaMalloc(&field_Ez_flat, sizeof(FPfield) * grd.nxn * grd.nyn * grd.nzn);
+    cudaMalloc(&field_Bxn_flat, sizeof(FPfield) * grd.nxn * grd.nyn * grd.nzn);
+    cudaMalloc(&field_Byn_flat, sizeof(FPfield) * grd.nxn * grd.nyn * grd.nzn);
+    cudaMalloc(&field_Bzn_flat, sizeof(FPfield) * grd.nxn * grd.nyn * grd.nzn);
     
     
     // **********************************************************//
@@ -98,17 +111,6 @@ int main(int argc, char **argv){
         //     mover_PC(&part[is],&field,&grd,&param);
         // eMover += (cpuSecond() - iMover); // stop timer for mover
         
-        FPfield *grd_XN_flat, *grd_YN_flat, *grd_ZN_flat, *field_Ex_flat, *field_Ey_flat, *field_Ez_flat, *field_Bxn_flat, *field_Byn_flat, *field_Bzn_flat;
-
-        cudaMalloc(&grd_XN_flat, sizeof(FPfield) * grd.nxn * grd.nyn * grd.nzn);
-        cudaMalloc(&grd_YN_flat, sizeof(FPfield) * grd.nxn * grd.nyn * grd.nzn);
-        cudaMalloc(&grd_ZN_flat, sizeof(FPfield) * grd.nxn * grd.nyn * grd.nzn);
-        cudaMalloc(&field_Ex_flat, sizeof(FPfield) * grd.nxn * grd.nyn * grd.nzn);
-        cudaMalloc(&field_Ey_flat, sizeof(FPfield) * grd.nxn * grd.nyn * grd.nzn);
-        cudaMalloc(&field_Ez_flat, sizeof(FPfield) * grd.nxn * grd.nyn * grd.nzn);
-        cudaMalloc(&field_Bxn_flat, sizeof(FPfield) * grd.nxn * grd.nyn * grd.nzn);
-        cudaMalloc(&field_Byn_flat, sizeof(FPfield) * grd.nxn * grd.nyn * grd.nzn);
-        cudaMalloc(&field_Bzn_flat, sizeof(FPfield) * grd.nxn * grd.nyn * grd.nzn);
 
         cudaMemcpy(grd_XN_flat, grd.XN_flat, sizeof(FPfield) * grd.nxn * grd.nyn * grd.nzn, cudaMemcpyHostToDevice);
         cudaMemcpy(grd_YN_flat, grd.YN_flat, sizeof(FPfield) * grd.nxn * grd.nyn * grd.nzn, cudaMemcpyHostToDevice);
@@ -161,16 +163,6 @@ int main(int argc, char **argv){
         }
 
 
-        cudaFree(grd_XN_flat);
-        cudaFree(grd_YN_flat);
-        cudaFree(grd_ZN_flat);
-        cudaFree(field_Ex_flat);
-        cudaFree(field_Ey_flat);
-        cudaFree(field_Ez_flat);
-        cudaFree(field_Bxn_flat);
-        cudaFree(field_Byn_flat);
-        cudaFree(field_Bzn_flat);
-
         
         
         // interpolation particle to grid
@@ -199,6 +191,18 @@ int main(int argc, char **argv){
         
     
     }  // end of one PIC cycle
+    
+    // Release device fields
+    cudaFree(grd_XN_flat);
+    cudaFree(grd_YN_flat);
+    cudaFree(grd_ZN_flat);
+    cudaFree(field_Ex_flat);
+    cudaFree(field_Ey_flat);
+    cudaFree(field_Ez_flat);
+    cudaFree(field_Bxn_flat);
+    cudaFree(field_Byn_flat);
+    cudaFree(field_Bzn_flat);
+
     
     /// Release the resources
     // deallocate field

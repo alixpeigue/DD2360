@@ -10,120 +10,32 @@
       "-Wall",
       "-c",
       "-o",
-      "src/BC.o",
-      "src/BC.cpp"
+      "src/TransArraySpace3D.o",
+      "src/TransArraySpace3D.cpp"
     ],
-    "directory": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC",
-    "file": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/BC.cpp",
-    "output": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/BC.o"
+    "directory": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC",
+    "file": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/TransArraySpace3D.cpp",
+    "output": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/TransArraySpace3D.o"
   },
   {
     "arguments": [
       "/opt/cuda/bin/nvcc",
-      "-std=c++11",
       "-I./include",
+      "-std=c++11",
       "-O3",
       "-g",
       "-Xcompiler",
       "-Wall",
+      "--compiler-bindir=g++-13",
+      "-fmad=false",
       "-c",
       "-o",
-      "src/Basic.o",
-      "src/Basic.cpp"
+      "src/Particles.o",
+      "src/Particles.cu"
     ],
-    "directory": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC",
-    "file": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/Basic.cpp",
-    "output": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/Basic.o"
-  },
-  {
-    "arguments": [
-      "/opt/cuda/bin/nvcc",
-      "-std=c++11",
-      "-I./include",
-      "-O3",
-      "-g",
-      "-Xcompiler",
-      "-Wall",
-      "-c",
-      "-o",
-      "src/ConfigFile.o",
-      "src/ConfigFile.cpp"
-    ],
-    "directory": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC",
-    "file": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/ConfigFile.cpp",
-    "output": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/ConfigFile.o"
-  },
-  {
-    "arguments": [
-      "/opt/cuda/bin/nvcc",
-      "-std=c++11",
-      "-I./include",
-      "-O3",
-      "-g",
-      "-Xcompiler",
-      "-Wall",
-      "-c",
-      "-o",
-      "src/EMfield.o",
-      "src/EMfield.cpp"
-    ],
-    "directory": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC",
-    "file": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/EMfield.cpp",
-    "output": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/EMfield.o"
-  },
-  {
-    "arguments": [
-      "/opt/cuda/bin/nvcc",
-      "-std=c++11",
-      "-I./include",
-      "-O3",
-      "-g",
-      "-Xcompiler",
-      "-Wall",
-      "-c",
-      "-o",
-      "src/EMfield_aux.o",
-      "src/EMfield_aux.cpp"
-    ],
-    "directory": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC",
-    "file": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/EMfield_aux.cpp",
-    "output": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/EMfield_aux.o"
-  },
-  {
-    "arguments": [
-      "/opt/cuda/bin/nvcc",
-      "-std=c++11",
-      "-I./include",
-      "-O3",
-      "-g",
-      "-Xcompiler",
-      "-Wall",
-      "-c",
-      "-o",
-      "src/Grid.o",
-      "src/Grid.cpp"
-    ],
-    "directory": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC",
-    "file": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/Grid.cpp",
-    "output": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/Grid.o"
-  },
-  {
-    "arguments": [
-      "/opt/cuda/bin/nvcc",
-      "-std=c++11",
-      "-I./include",
-      "-O3",
-      "-g",
-      "-Xcompiler",
-      "-Wall",
-      "-c",
-      "-o",
-      "src/InterpDensNet.o",
-      "src/InterpDensNet.cpp"
-    ],
-    "directory": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC",
-    "file": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/InterpDensNet.cpp",
-    "output": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/InterpDensNet.o"
+    "directory": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC",
+    "file": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/Particles.cu",
+    "output": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/Particles.o"
   },
   {
     "arguments": [
@@ -139,28 +51,27 @@
       "src/InterpDensSpecies.o",
       "src/InterpDensSpecies.cpp"
     ],
-    "directory": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC",
-    "file": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/InterpDensSpecies.cpp",
-    "output": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/InterpDensSpecies.o"
+    "directory": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC",
+    "file": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/InterpDensSpecies.cpp",
+    "output": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/InterpDensSpecies.o"
   },
   {
     "arguments": [
       "/opt/cuda/bin/nvcc",
-      "-I./include",
       "-std=c++11",
+      "-I./include",
       "-O3",
       "-g",
       "-Xcompiler",
       "-Wall",
-      "--compiler-bindir=g++-13",
       "-c",
       "-o",
-      "src/Particles.o",
-      "src/Particles.cu"
+      "src/InterpDensNet.o",
+      "src/InterpDensNet.cpp"
     ],
-    "directory": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC",
-    "file": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/Particles.cu",
-    "output": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/Particles.o"
+    "directory": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC",
+    "file": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/InterpDensNet.cpp",
+    "output": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/InterpDensNet.o"
   },
   {
     "arguments": [
@@ -176,9 +87,119 @@
       "src/Particles_aux.o",
       "src/Particles_aux.cpp"
     ],
-    "directory": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC",
-    "file": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/Particles_aux.cpp",
-    "output": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/Particles_aux.o"
+    "directory": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC",
+    "file": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/Particles_aux.cpp",
+    "output": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/Particles_aux.o"
+  },
+  {
+    "arguments": [
+      "/opt/cuda/bin/nvcc",
+      "-std=c++11",
+      "-I./include",
+      "-O3",
+      "-g",
+      "-Xcompiler",
+      "-Wall",
+      "-c",
+      "-o",
+      "src/EMfield.o",
+      "src/EMfield.cpp"
+    ],
+    "directory": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC",
+    "file": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/EMfield.cpp",
+    "output": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/EMfield.o"
+  },
+  {
+    "arguments": [
+      "/opt/cuda/bin/nvcc",
+      "-I./include",
+      "-std=c++11",
+      "-O3",
+      "-g",
+      "-Xcompiler",
+      "-Wall",
+      "--compiler-bindir=g++-13",
+      "-fmad=false",
+      "-c",
+      "-o",
+      "src/sputniPIC.o",
+      "src/sputniPIC.cu"
+    ],
+    "directory": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC",
+    "file": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/sputniPIC.cu",
+    "output": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/sputniPIC.o"
+  },
+  {
+    "arguments": [
+      "/opt/cuda/bin/nvcc",
+      "-std=c++11",
+      "-I./include",
+      "-O3",
+      "-g",
+      "-Xcompiler",
+      "-Wall",
+      "-c",
+      "-o",
+      "src/EMfield_aux.o",
+      "src/EMfield_aux.cpp"
+    ],
+    "directory": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC",
+    "file": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/EMfield_aux.cpp",
+    "output": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/EMfield_aux.o"
+  },
+  {
+    "arguments": [
+      "/opt/cuda/bin/nvcc",
+      "-std=c++11",
+      "-I./include",
+      "-O3",
+      "-g",
+      "-Xcompiler",
+      "-Wall",
+      "-c",
+      "-o",
+      "src/Grid.o",
+      "src/Grid.cpp"
+    ],
+    "directory": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC",
+    "file": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/Grid.cpp",
+    "output": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/Grid.o"
+  },
+  {
+    "arguments": [
+      "/opt/cuda/bin/nvcc",
+      "-std=c++11",
+      "-I./include",
+      "-O3",
+      "-g",
+      "-Xcompiler",
+      "-Wall",
+      "-c",
+      "-o",
+      "src/BC.o",
+      "src/BC.cpp"
+    ],
+    "directory": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC",
+    "file": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/BC.cpp",
+    "output": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/BC.o"
+  },
+  {
+    "arguments": [
+      "/opt/cuda/bin/nvcc",
+      "-std=c++11",
+      "-I./include",
+      "-O3",
+      "-g",
+      "-Xcompiler",
+      "-Wall",
+      "-c",
+      "-o",
+      "src/Basic.o",
+      "src/Basic.cpp"
+    ],
+    "directory": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC",
+    "file": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/Basic.cpp",
+    "output": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/Basic.o"
   },
   {
     "arguments": [
@@ -194,9 +215,9 @@
       "src/RW_IO.o",
       "src/RW_IO.cpp"
     ],
-    "directory": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC",
-    "file": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/RW_IO.cpp",
-    "output": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/RW_IO.o"
+    "directory": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC",
+    "file": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/RW_IO.cpp",
+    "output": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/RW_IO.o"
   },
   {
     "arguments": [
@@ -212,9 +233,9 @@
       "src/Timing.o",
       "src/Timing.cpp"
     ],
-    "directory": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC",
-    "file": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/Timing.cpp",
-    "output": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/Timing.o"
+    "directory": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC",
+    "file": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/Timing.cpp",
+    "output": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/Timing.o"
   },
   {
     "arguments": [
@@ -227,29 +248,11 @@
       "-Wall",
       "-c",
       "-o",
-      "src/TransArraySpace3D.o",
-      "src/TransArraySpace3D.cpp"
+      "src/ConfigFile.o",
+      "src/ConfigFile.cpp"
     ],
-    "directory": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC",
-    "file": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/TransArraySpace3D.cpp",
-    "output": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/TransArraySpace3D.o"
-  },
-  {
-    "arguments": [
-      "/opt/cuda/bin/nvcc",
-      "-std=c++11",
-      "-I./include",
-      "-O3",
-      "-g",
-      "-Xcompiler",
-      "-Wall",
-      "-c",
-      "-o",
-      "src/sputniPIC.o",
-      "src/sputniPIC.cpp"
-    ],
-    "directory": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC",
-    "file": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/sputniPIC.cpp",
-    "output": "/home/amar/Documents/INSA/KTH/gpu/assign3/DD2360/DD2360-PIC/src/sputniPIC.o"
+    "directory": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC",
+    "file": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/ConfigFile.cpp",
+    "output": "/home/apeigue/Documents/INSA/KTH/2024_2025/DD2360_Applied_GPU_Programming/assignment3/DD2360/DD2360/DD2360-PIC/src/ConfigFile.o"
   }
 ]
