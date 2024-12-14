@@ -3,9 +3,9 @@
 CXX=g++-13
 CXXFLAGS=-std=c++11 -I./include -O3 -g -Xcompiler -Wall
 
-NVCC=nvcc
+NVCC=nvcc -fmad=false
 ARCH=sm_30
-NVCCFLAGS= -I./include -std=c++11 -O3 -g -Xcompiler -Wall --compiler-bindir=$(CXX) -fmad=false
+NVCCFLAGS= -I./include -std=c++11 -O3 -g -Xcompiler -Wall --compiler-bindir=$(CXX)
 
 SRCDIR=src
 SRCS=$(shell find $(SRCDIR) -name '*.cu' -o -name '*.cpp')
