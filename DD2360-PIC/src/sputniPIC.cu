@@ -98,6 +98,7 @@ int main(int argc, char **argv){
         //     mover_PC(&part[is],&field,&grd,&param);
         // eMover += (cpuSecond() - iMover); // stop timer for mover
         
+        iMover = cpuSecond(); // start timer for mover
         FPfield *grd_XN_flat, *grd_YN_flat, *grd_ZN_flat, *field_Ex_flat, *field_Ey_flat, *field_Ez_flat, *field_Bxn_flat, *field_Byn_flat, *field_Bzn_flat;
 
         cudaMalloc(&grd_XN_flat, sizeof(FPfield) * grd.nxn * grd.nyn * grd.nzn);
@@ -172,6 +173,7 @@ int main(int argc, char **argv){
         cudaFree(field_Bzn_flat);
 
         
+        eMover += (cpuSecond() - iMover); // stop timer for mover
         
         // interpolation particle to grid
         iInterp = cpuSecond(); // start timer for the interpolation step
