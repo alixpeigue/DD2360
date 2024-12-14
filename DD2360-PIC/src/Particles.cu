@@ -1,5 +1,6 @@
 #include "Particles.h"
 #include "Alloc.h"
+#include "PrecisionTypes.h"
 #include <cuda.h>
 #include <cuda_runtime.h>
 
@@ -232,6 +233,166 @@ int mover_PC(struct particles* part, struct EMfield* field, struct grid* grd, st
     return(0); // exit succcesfully
 } // end of the mover
 
+
+
+/** particle mover GPU */
+__global__ void mover_PC_gpu(struct particles part, struct EMfield field, struct grid grd, struct parameters param, FPpart *part_x,
+                             FPpart *part_y, FPpart *part_z, FPpart *part_u, FPpart *part_v, FPpart *part_w, FPfield *grd_XN_flat,
+                             FPfield *grd_YN_flat, FPfield *grd_ZN_flat, FPfield *field_Ex_flat, FPfield *field_Ey_flat,
+                             FPfield *field_Ez_flat, FPfield *field_Bxn_flat, FPfield *field_Byn_flat, FPfield *field_Bzn_flat)
+{
+    int i = blockIdx.x * blockDim.x + threadIdx.x;
+
+    if (i >= part.nop) return;
+
+    // print species and subcycling
+    // std::cout << "***  MOVER with SUBCYCLYING "<< param.n_sub_cycles << " - species " << part.species_ID << " ***" << std::endl;
+    // printf("***  MOVER with SUBCYCLYING %d - species %d ***", param.n_sub_cycles, part.species_ID);
+ 
+    // auxiliary variables
+    FPpart dt_sub_cycling = (FPpart) param.dt/((double) part.n_sub_cycles);
+    FPpart dto2 = .5*dt_sub_cycling, qomdt2 = part.qom*dto2/param.c;
+    FPpart omdtsq, denom, ut, vt, wt, udotb;
+    
+    // local (to the particle) electric and magnetic field
+    FPfield Exl=0.0, Eyl=0.0, Ezl=0.0, Bxl=0.0, Byl=0.0, Bzl=0.0;
+    
+    // interpolation densities
+    int ix,iy,iz,grid_idx;
+    FPfield weight[2][2][2];
+    FPfield xi[2], eta[2], zeta[2];
+    
+    // intermediate particle position and velocity
+    FPpart xptilde, yptilde, zptilde, uptilde, vptilde, wptilde;
+    
+    xptilde = part_x[i];
+    yptilde = part_y[i];
+    zptilde = part_z[i];
+    // calculate the average velocity iteratively
+    for(int innter=0; innter < part.NiterMover; innter++){
+        // interpolation G-->P
+        ix = 2 +  int((part_x[i] - grd.xStart)*grd.invdx);
+        iy = 2 +  int((part_y[i] - grd.yStart)*grd.invdy);
+        iz = 2 +  int((part_z[i] - grd.zStart)*grd.invdz);
+        grid_idx = get_idx(ix, iy, iz, grd.nyn, grd.nzn);
+        
+        // calculate weights
+        xi[0]   = part_x[i] - grd_XN_flat[get_idx(ix - 1, iy, iz, grd.nyn, grd.nzn)];
+        eta[0]  = part_y[i] - grd_YN_flat[get_idx(ix, iy - 1, iz, grd.nyn, grd.nzn)];
+        zeta[0] = part_z[i] - grd_ZN_flat[get_idx(ix, iy, iz - 1, grd.nyn, grd.nzn)];
+        xi[1]   = grd_XN_flat[grid_idx] - part_x[i];
+        eta[1]  = grd_YN_flat[grid_idx] - part_y[i];
+        zeta[1] = grd_ZN_flat[grid_idx] - part_z[i];
+        for (int ii = 0; ii < 2; ii++)
+            for (int jj = 0; jj < 2; jj++)
+                for (int kk = 0; kk < 2; kk++)
+                    weight[ii][jj][kk] = xi[ii] * eta[jj] * zeta[kk] * grd.invVOL;
+        
+        // set to zero local electric and magnetic field
+        Exl=0.0, Eyl = 0.0, Ezl = 0.0, Bxl = 0.0, Byl = 0.0, Bzl = 0.0;
+        
+        for (int ii=0; ii < 2; ii++)
+            for (int jj=0; jj < 2; jj++)
+                for(int kk=0; kk < 2; kk++){
+                    Exl += weight[ii][jj][kk]*field_Ex_flat[get_idx(ix - ii, iy - jj, iz - kk, grd.nyn, grd.nzn)];
+                    Eyl += weight[ii][jj][kk]*field_Ey_flat[get_idx(ix - ii, iy - jj, iz - kk, grd.nyn, grd.nzn)];
+                    Ezl += weight[ii][jj][kk]*field_Ez_flat[get_idx(ix - ii, iy - jj, iz - kk, grd.nyn, grd.nzn)];
+                    Bxl += weight[ii][jj][kk]*field_Bxn_flat[get_idx(ix - ii, iy - jj, iz - kk, grd.nyn, grd.nzn)];
+                    Byl += weight[ii][jj][kk]*field_Byn_flat[get_idx(ix - ii, iy - jj, iz - kk, grd.nyn, grd.nzn)];
+                    Bzl += weight[ii][jj][kk]*field_Bzn_flat[get_idx(ix - ii, iy - jj, iz - kk, grd.nyn, grd.nzn)];
+                }
+        
+        // end interpolation
+        omdtsq = qomdt2*qomdt2*(Bxl*Bxl+Byl*Byl+Bzl*Bzl);
+        denom = 1.0/(1.0 + omdtsq);
+        // solve the position equation
+        ut= part_u[i] + qomdt2*Exl;
+        vt= part_v[i] + qomdt2*Eyl;
+        wt= part_w[i] + qomdt2*Ezl;
+        udotb = ut*Bxl + vt*Byl + wt*Bzl;
+        // solve the velocity equation
+        uptilde = (ut+qomdt2*(vt*Bzl -wt*Byl + qomdt2*udotb*Bxl))*denom;
+        vptilde = (vt+qomdt2*(wt*Bxl -ut*Bzl + qomdt2*udotb*Byl))*denom;
+        wptilde = (wt+qomdt2*(ut*Byl -vt*Bxl + qomdt2*udotb*Bzl))*denom;
+        // update position
+        part_x[i] = xptilde + uptilde*dto2;
+        part_y[i] = yptilde + vptilde*dto2;
+        part_z[i] = zptilde + wptilde*dto2;
+        
+        
+    } // end of iteration
+    // update the final position and velocity
+    part_u[i]= 2.0*uptilde - part_u[i];
+    part_v[i]= 2.0*vptilde - part_v[i];
+    part_w[i]= 2.0*wptilde - part_w[i];
+    part_x[i] = xptilde + uptilde*dt_sub_cycling;
+    part_y[i] = yptilde + vptilde*dt_sub_cycling;
+    part_z[i] = zptilde + wptilde*dt_sub_cycling;
+    
+    
+    //////////
+    //////////
+    ////////// BC
+                                
+    // X-DIRECTION: BC particles
+    if (part_x[i] > grd.Lx){
+        if (param.PERIODICX==true){ // PERIODIC
+            part_x[i] = part_x[i] - grd.Lx;
+        } else { // REFLECTING BC
+            part_u[i] = -part_u[i];
+            part_x[i] = 2*grd.Lx - part_x[i];
+        }
+    }
+                                                                
+    if (part_x[i] < 0){
+        if (param.PERIODICX==true){ // PERIODIC
+           part_x[i] = part_x[i] + grd.Lx;
+        } else { // REFLECTING BC
+            part_u[i] = -part_u[i];
+            part_x[i] = -part_x[i];
+        }
+    }
+        
+    
+    // Y-DIRECTION: BC particles
+    if (part_y[i] > grd.Ly){
+        if (param.PERIODICY==true){ // PERIODIC
+            part_y[i] = part_y[i] - grd.Ly;
+        } else { // REFLECTING BC
+            part_v[i] = -part_v[i];
+            part_y[i] = 2*grd.Ly - part_y[i];
+        }
+    }
+                                                                
+    if (part_y[i] < 0){
+        if (param.PERIODICY==true){ // PERIODIC
+            part_y[i] = part_y[i] + grd.Ly;
+        } else { // REFLECTING BC
+            part_v[i] = -part_v[i];
+            part_y[i] = -part_y[i];
+        }
+    }
+                                                                
+    // Z-DIRECTION: BC particles
+    if (part_z[i] > grd.Lz){
+        if (param.PERIODICZ==true){ // PERIODIC
+            part_z[i] = part_z[i] - grd.Lz;
+        } else { // REFLECTING BC
+            part_w[i] = -part_w[i];
+            part_z[i] = 2*grd.Lz - part_z[i];
+        }
+    }
+                                                                
+    if (part_z[i] < 0){
+        if (param.PERIODICZ==true){ // PERIODIC
+            part_z[i] = part_z[i] + grd.Lz;
+        } else { // REFLECTING BC
+            part_w[i] = -part_w[i];
+            part_z[i] = -part_z[i];
+        }
+    }
+
+} // end of the mover
 
 
 /** Interpolation Particle --> Grid: This is for species */
